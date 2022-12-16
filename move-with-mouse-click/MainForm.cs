@@ -66,7 +66,12 @@ namespace move_with_mouse_click
                     mousePosition.Y - centerButton.Y - CLIENT_RECT_OFFSET);
                 { }
 
-                BeginInvoke(() => Location = offsetToNow);
+                BeginInvoke(() =>
+                {
+                    Location = offsetToNow;
+                    // Cosmetic
+                    richTextBox.Select(0, 0);
+                });
             }
         }
 
@@ -75,7 +80,7 @@ namespace move_with_mouse_click
             richTextBox.Rtf = @"{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
 {\colortbl ;\red0\green77\blue187;}
 {\*\generator Riched20 10.0.22621}\viewkind4\uc1 
-\pard\sa200\sl276\slmult1\cf1\i\f0\fs24\lang9 Without the MessageFilter, one problem you might run into is 'not' getting a click event in the Main Form when clicking on a child control.\cf0\i0\fs22\par
+\pard\sa200\sl276\slmult1\cf1\i\f0\fs24\lang9 Without the MessageFilter, one problem you might run into is 'not' getting a click event in the Main Form when clicking on a child control like this one.\cf0\i0\fs22\par
 }
  ";
         }
