@@ -1,6 +1,6 @@
 As I understand it, the desired behavior is to enable the "Click to Move" (one way or another) and then move the form to a new location based on where you click _next_. 
 
-One option where you don't have to drill all the way down to the WinAPI is to implement `IMessageFilter` on the MainForm. The argument for doing so is that ordinarily the main form isn't going to see a `Click` event that occurs on a child control. This is an easy way to gain access to every click. In fact, this works so well that we have to take pains to _exclude_ a click that occurs on the button that enables the Click to Move!
+One option where you don't have to drill all the way down to the WinAPI is to implement `IMessageFilter` on the MainForm. The argument for doing so is that ordinarily the main form isn't going to see a `Click` event that occurs on a child control. This is an easy way to gain access to every click. (In fact, this works so well that we have to take pains to _exclude_ a click that occurs on the button that enables the Click to Move!)
 
 ***
 **MessageFilter implementation and disposal**
@@ -11,7 +11,8 @@ One option where you don't have to drill all the way down to the WinAPI is to im
         {
             InitializeComponent();
             Application.AddMessageFilter(this);
-            var clientOffset = Location.Y - PointToScreen(ClientRectangle.Location).Y;
+
+            // A little bit of setting up for the move offsets etc.
             var offset = RectangleToScreen(ClientRectangle);
             CLIENT_RECT_OFFSET = offset.Y - Location.Y;
             initRichText();
@@ -46,10 +47,10 @@ One option where you don't have to drill all the way down to the WinAPI is to im
         }
     }
 
-Using `BeginInvoke` to keep from block the mouse click itself, set the new main form location to the screen position of the WM_LBUTTONDOWN message;
-
 ***
 **Perform the Move**
+
+Using `BeginInvoke` to avoid blocking the mouse click itself, set the new main form location to the screen position of the WM_LBUTTONDOWN message;
 
     private void onClickToMove(Point mousePosition)
     {

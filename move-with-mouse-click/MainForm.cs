@@ -8,7 +8,6 @@ namespace move_with_mouse_click
         {
             InitializeComponent();
             Application.AddMessageFilter(this);
-            var clientOffset = Location.Y - PointToScreen(ClientRectangle.Location).Y;
             var offset = RectangleToScreen(ClientRectangle);
             CLIENT_RECT_OFFSET = offset.Y - Location.Y;
             initRichText();
