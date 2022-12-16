@@ -11,7 +11,9 @@ namespace move_with_mouse_click
             var clientOffset = Location.Y - PointToScreen(ClientRectangle.Location).Y;
             var offset = RectangleToScreen(ClientRectangle);
             CLIENT_RECT_OFFSET = offset.Y - Location.Y;
+            initRichText();
         }
+
         readonly int CLIENT_RECT_OFFSET;
         protected override void Dispose(bool disposing)
         {
@@ -58,7 +60,7 @@ namespace move_with_mouse_click
                     new Point(
                         checkBoxEnableCTM.Location.X + checkBoxEnableCTM.Width / 2,
                         checkBoxEnableCTM.Location.Y + checkBoxEnableCTM.Height / 2);
-                { }
+
                 var offsetToNow = new Point(
                     mousePosition.X - centerButton.X,
                     mousePosition.Y - centerButton.Y - CLIENT_RECT_OFFSET);
@@ -66,6 +68,16 @@ namespace move_with_mouse_click
 
                 BeginInvoke(() => Location = offsetToNow);
             }
+        }
+
+        private void initRichText()
+        {
+            richTextBox.Rtf = @"{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green77\blue187;}
+{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\cf1\i\f0\fs24\lang9 Without the MessageFilter, one problem you might run into is 'not' getting a click event in the Main Form when clicking on a child control.\cf0\i0\fs22\par
+}
+ ";
         }
     }
 }
