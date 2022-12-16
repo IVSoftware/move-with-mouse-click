@@ -1,3 +1,5 @@
+As I understand it, the desired behavior is to enable the `Click to Move` (one way or another) and then move the form to a new location based on where you click _next_. 
+
 One option where you don't have to drill all the way down to the WinAPI is to implement `IMessageFilter` on the MainForm. The argument for doing so is that ordinarily the main form isn't going to see a `Click` event that occurs on a child control. This is an easy way to gain access to every click. In fact, this works so well that we have to take pains to _exclude_ a click that occurs on the button that enables the Click to Move!
 
     public partial class MainForm : Form, IMessageFilter
@@ -74,7 +76,10 @@ Using `BeginInvoke` to keep from block the mouse click itself, set the new main 
         }
     }
 
-In the code I used to test this answer, it seemed intuitive to center the button where the click takes place. This offset is easy to change if it doesn't suit you. A screenshot doesn't really capture the behavior very well, so I've put the example up on GitHub feel free to [Clone]() it.
+In the code I used to test this answer, it seemed intuitive to center the button where the click takes place. This offset is easy to change if it doesn't suit you. A screenshot doesn't really capture the behavior very well, so I've put the example up on GitHub feel free to [Clone](https://github.com/IVSoftware/move-with-mouse-click.git) it.
 
-![screenshot]()
 
+[![screenshot][1]][1]
+
+
+  [1]: https://i.stack.imgur.com/r4b3S.png
